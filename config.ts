@@ -52,7 +52,7 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#5f67ee' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'Cooking' }],
-    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-PHBYJQ1PE1', async: true }],
+    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-PHBYJQ1PE1', async: 'true' }],
     ['script', {}, `
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
