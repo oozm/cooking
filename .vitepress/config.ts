@@ -76,9 +76,9 @@ export default defineConfig({
     },
     logo: { src: '/logo-mini.png', width: 24, height: 24 },
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/oozm/cooking' }
+      { icon: 'github', link: 'https://github.com/oozm/cooking', ariaLabel: 'GitHub' },
     ],
-    carbonAds: { code: 'CEBDT27Y', placement: 'vuejsorg' },
+    // carbonAds: { code: 'CEBDT27Y', placement: 'vuejsorg' },
     sidebar: createGuideSidebar()
   },
 
