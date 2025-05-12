@@ -11,15 +11,12 @@ import { createGuideSidebar } from "./generateSidebar.mjs";
 
 export default defineConfig({
   title: 'Cooking',
-
   rewrites: {
     'en/:rest*': ':rest*'
   },
-
   lastUpdated: true,
   cleanUrls: true,
   metaChunk: true,
-
   markdown: {
     math: true,
     codeTransformers: [
@@ -43,7 +40,7 @@ export default defineConfig({
   },
 
   sitemap: {
-    hostname: 'https://vitepress.dev',
+    hostname: 'https://uilist.com',
     transformItems(items) {
       return items.filter((item) => !item.url.includes('migration'))
     }
