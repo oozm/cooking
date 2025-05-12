@@ -53,7 +53,7 @@ hero:
   </div>
   <div style="flex:1; min-width:150px;">
     <strong>3. 跟着学</strong>
-    <p>图文＋视频＋小贴士</p>
+    <p>图文＋小贴士</p>
   </div>
 </div>
 <footer style="margin-top:2rem; font-size:0.9rem; color:#666; text-align:center;">
