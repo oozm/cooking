@@ -65,9 +65,14 @@ export default defineConfig({
     search: {
       provider: 'local',
     },
+    nav: [
+      { text: '首页', link: '/' },
+      { text: '指南', link: '/guide/learn/厨房准备' },
+      { text: '免责声明', link: '/disclaimer' }
+    ],
     footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2019-present Evan You'
+      message: '食品安全请自主管理，本站不承担烹饪风险责任。',
+      copyright: '© 2025 Cooking 食谱站 版权所有'
     },
     logo: { src: '/logo-mini.png', width: 24, height: 24 },
     socialLinks: [
