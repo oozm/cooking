@@ -65,6 +65,10 @@ export default defineConfig({
     search: {
       provider: 'local',
     },
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: 'Copyright © 2019-present Evan You'
+    },
     logo: { src: '/logo-mini.png', width: 24, height: 24 },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/oozm/cooking' }
