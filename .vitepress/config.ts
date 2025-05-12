@@ -11,7 +11,7 @@ import { createGuideSidebar } from "./generateSidebar.mjs";
 
 export default defineConfig({
   title: 'Cooking',
-  base: '/cooking/',
+  base: './',
   rewrites: {
     'en/:rest*': ':rest*'
   },
