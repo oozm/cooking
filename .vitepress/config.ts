@@ -10,6 +10,7 @@ import { createGuideSidebar } from "./generateSidebar.mjs";
 
 
 export default defineConfig({
+  base: '/cooking/',
   title: 'Cooking',
   // rewrites: {
   //   'en/:rest*': ':rest*'
@@ -39,7 +40,6 @@ export default defineConfig({
     }
   },
 
-  base: '/',
   sitemap: {
     hostname: 'uilist.com',
     transformItems(items) {
