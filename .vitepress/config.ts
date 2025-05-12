@@ -6,8 +6,11 @@ import {
   groupIconVitePlugin,
   localIconLoader
 } from 'vitepress-plugin-group-icons'
+
+import llmstxt from 'vitepress-plugin-llms'
 import { createGuideSidebar } from "./generateSidebar.mjs";
 
+const prod = !!process.env.NETLIFY
 
 export default defineConfig({
   title: 'Cooking',
@@ -95,6 +98,11 @@ export default defineConfig({
           firebase: 'logos:firebase'
         }
       }),
+      prod &&
+      llmstxt({
+        workDir: 'en',
+        ignoreFiles: ['index.md']
+      })
     ],
     build: {
       // 将警告阈值调到 1000 KB（默认为 500）
