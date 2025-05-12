@@ -15,9 +15,9 @@ const prod = !!process.env.NETLIFY
 export default defineConfig({
   title: 'Cooking',
   base: '/cooking/',
-  rewrites: {
-    'en/:rest*': ':rest*'
-  },
+  // rewrites: {
+  //   'en/:rest*': ':rest*'
+  // },
   lastUpdated: true,
   cleanUrls: true,
   metaChunk: true,
