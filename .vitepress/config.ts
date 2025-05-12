@@ -11,9 +11,9 @@ import { createGuideSidebar } from "./generateSidebar.mjs";
 
 export default defineConfig({
   title: 'Cooking',
-  rewrites: {
-    'en/:rest*': ':rest*'
-  },
+  // rewrites: {
+  //   'en/:rest*': ':rest*'
+  // },
   lastUpdated: true,
   cleanUrls: true,
   metaChunk: true,
@@ -60,7 +60,6 @@ export default defineConfig({
     gtag('config', 'G-PHBYJQ1PE1', { anonymize_ip: true });
   `]
   ],
-
   themeConfig: {
     search: {
       provider: 'local',
@@ -70,6 +69,7 @@ export default defineConfig({
       { text: '指南', link: '/guide/learn/厨房准备' },
       { text: '免责声明', link: '/disclaimer' }
     ],
+    sidebar: createGuideSidebar(),
     footer: {
       message: '食品安全请自主管理，本站不承担烹饪风险责任。',
       copyright: '© 2025 Cooking 食谱站 版权所有'
@@ -79,7 +79,6 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/oozm/cooking', ariaLabel: 'GitHub' },
     ],
     // carbonAds: { code: 'CEBDT27Y', placement: 'vuejsorg' },
-    sidebar: createGuideSidebar()
   },
 
 

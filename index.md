@@ -1,5 +1,6 @@
 ---
 layout: home
+home: true
 
 hero:
   name: 美味，一触即发

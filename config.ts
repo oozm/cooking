@@ -1,139 +1,104 @@
-import { createRequire } from 'module'
-import { defineAdditionalConfig, type DefaultTheme } from 'vitepress'
+import {
+  defineConfig,
+} from 'vitepress'
+import {
+  groupIconMdPlugin,
+  groupIconVitePlugin,
+  localIconLoader
+} from 'vitepress-plugin-group-icons'
+import { createGuideSidebar } from "./generateSidebar.mjs";
 
-const require = createRequire(import.meta.url)
-const pkg = require('vitepress/package.json')
 
-export default defineAdditionalConfig({
-  lang: 'en-US',
-  description: 'Vite & Vue powered static site generator.',
+export default defineConfig({
+  title: 'Cooking',
+  // rewrites: {
+  //   'en/:rest*': ':rest*'
+  // },
+  lastUpdated: true,
+  cleanUrls: true,
+  metaChunk: true,
+  markdown: {
+    math: true,
+    codeTransformers: [
+      // We use `[!!code` in demo to prevent transformation, here we revert it back.
+      {
+        postprocess(code) {
+          return code.replace(/\[\!\!code/g, '[!code')
+        }
+      }
+    ],
+    config(md) {
+      const fence = md.renderer.rules.fence!
+      md.renderer.rules.fence = function (tokens, idx, options, env, self) {
+        return fence(tokens, idx, options, env, self).replace(
+          '<button title="Copy Code" class="copy"></button>',
+          `<button title="复制代码" class="copy"></button>`
+        )
+      }
+      md.use(groupIconMdPlugin)
+    }
+  },
 
+  sitemap: {
+    hostname: 'https://uilist.com',
+    transformItems(items) {
+      return items.filter((item) => !item.url.includes('migration'))
+    }
+  },
+
+  /* prettier-ignore */
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', href: '/logo-mini.png' }],
+    ['meta', { name: 'theme-color', content: '#5f67ee' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'Cooking' }],
+    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-PHBYJQ1PE1', async: true }],
+    ['script', {}, `
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PHBYJQ1PE1', { anonymize_ip: true });
+  `]
+  ],
   themeConfig: {
-    nav: nav(),
-
-    sidebar: {
-      '/guide/': { base: '/guide/', items: sidebarGuide() },
-      '/reference/': { base: '/reference/', items: sidebarReference() }
+    search: {
+      provider: 'local',
     },
-
-    editLink: {
-      pattern: 'https://github.com/vuejs/vitepress/edit/main/docs/:path',
-      text: 'Edit this page on GitHub'
-    },
-
+    nav: [
+      { text: '首页', link: '/' },
+      { text: '指南', link: '/guide/learn/厨房准备' },
+      { text: '免责声明', link: '/disclaimer' }
+    ],
+    sidebar: createGuideSidebar(),
     footer: {
-      message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2019-present Evan You'
+      message: '食品安全请自主管理，本站不承担烹饪风险责任。',
+      copyright: '© 2025 Cooking 食谱站 版权所有'
+    },
+    logo: { src: '/logo-mini.png', width: 24, height: 24 },
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/oozm/cooking', ariaLabel: 'GitHub' },
+    ],
+    // carbonAds: { code: 'CEBDT27Y', placement: 'vuejsorg' },
+  },
+
+
+  vite: {
+    assetsInclude: [/\.(jpe?g|png|gif|svg)$/i],
+    plugins: [
+      groupIconVitePlugin({
+        customIcon: {
+          vitepress: localIconLoader(
+            import.meta.url,
+            '../public/logo-mini.png'
+          ),
+          firebase: 'logos:firebase'
+        }
+      }),
+    ],
+    build: {
+      // 将警告阈值调到 1000 KB（默认为 500）
+      chunkSizeWarningLimit: 1000,
     }
-  }
+  },
+
 })
-
-function nav(): DefaultTheme.NavItem[] {
-  return [
-    {
-      text: 'Guide',
-      link: '/guide/what-is-vitepress',
-      activeMatch: '/guide/'
-    },
-    {
-      text: 'Reference',
-      link: '/reference/site-config',
-      activeMatch: '/reference/'
-    },
-    {
-      text: pkg.version,
-      items: [
-        {
-          text: 'Changelog',
-          link: 'https://github.com/vuejs/vitepress/blob/main/CHANGELOG.md'
-        },
-        {
-          text: 'Contributing',
-          link: 'https://github.com/vuejs/vitepress/blob/main/.github/contributing.md'
-        }
-      ]
-    }
-  ]
-}
-
-function sidebarGuide(): DefaultTheme.SidebarItem[] {
-  return [
-    {
-      text: 'Introduction',
-      collapsed: false,
-      items: [
-        { text: 'What is VitePress?', link: 'what-is-vitepress' },
-        { text: 'Getting Started', link: 'getting-started' },
-        { text: 'Routing', link: 'routing' },
-        { text: 'Deploy', link: 'deploy' }
-      ]
-    },
-    {
-      text: 'Writing',
-      collapsed: false,
-      items: [
-        { text: 'Markdown Extensions', link: 'markdown' },
-        { text: 'Asset Handling', link: 'asset-handling' },
-        { text: 'Frontmatter', link: 'frontmatter' },
-        { text: 'Using Vue in Markdown', link: 'using-vue' },
-        { text: 'Internationalization', link: 'i18n' }
-      ]
-    },
-    {
-      text: 'Customization',
-      collapsed: false,
-      items: [
-        { text: 'Using a Custom Theme', link: 'custom-theme' },
-        {
-          text: 'Extending the Default Theme',
-          link: 'extending-default-theme'
-        },
-        { text: 'Build-Time Data Loading', link: 'data-loading' },
-        { text: 'SSR Compatibility', link: 'ssr-compat' },
-        { text: 'Connecting to a CMS', link: 'cms' }
-      ]
-    },
-    {
-      text: 'Experimental',
-      collapsed: false,
-      items: [
-        { text: 'MPA Mode', link: 'mpa-mode' },
-        { text: 'Sitemap Generation', link: 'sitemap-generation' }
-      ]
-    },
-    { text: 'Config & API Reference', base: '/reference/', link: 'site-config' }
-  ]
-}
-
-function sidebarReference(): DefaultTheme.SidebarItem[] {
-  return [
-    {
-      text: 'Reference',
-      items: [
-        { text: 'Site Config', link: 'site-config' },
-        { text: 'Frontmatter Config', link: 'frontmatter-config' },
-        { text: 'Runtime API', link: 'runtime-api' },
-        { text: 'CLI', link: 'cli' },
-        {
-          text: 'Default Theme',
-          base: '/reference/default-theme-',
-          items: [
-            { text: 'Overview', link: 'config' },
-            { text: 'Nav', link: 'nav' },
-            { text: 'Sidebar', link: 'sidebar' },
-            { text: 'Home Page', link: 'home-page' },
-            { text: 'Footer', link: 'footer' },
-            { text: 'Layout', link: 'layout' },
-            { text: 'Badge', link: 'badge' },
-            { text: 'Team Page', link: 'team-page' },
-            { text: 'Prev / Next Links', link: 'prev-next-links' },
-            { text: 'Edit Link', link: 'edit-link' },
-            { text: 'Last Updated Timestamp', link: 'last-updated' },
-            { text: 'Search', link: 'search' },
-            { text: 'Carbon Ads', link: 'carbon-ads' }
-          ]
-        }
-      ]
-    }
-  ]
-}
