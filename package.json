@@ -9,7 +9,7 @@
     "preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.6.3",
+    "vitepress": "next",
     "vue": "^3.3.4"
   },
   "pnpm": {
