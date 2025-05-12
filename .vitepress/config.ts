@@ -41,7 +41,7 @@ export default defineConfig({
 
   base: '/',
   sitemap: {
-    hostname: 'https://www.uilist.com',
+    hostname: 'uilist.com',
     transformItems(items) {
       return items.filter((item) => !item.url.includes('migration'))
     }

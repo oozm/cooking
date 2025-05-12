@@ -20,7 +20,6 @@ export default defineConfig({
   markdown: {
     math: true,
     codeTransformers: [
-      // We use `[!!code` in demo to prevent transformation, here we revert it back.
       {
         postprocess(code) {
           return code.replace(/\[\!\!code/g, '[!code')
@@ -40,7 +39,7 @@ export default defineConfig({
   },
 
   sitemap: {
-    hostname: 'https://uilist.com',
+    hostname: 'uilist.com',
     transformItems(items) {
       return items.filter((item) => !item.url.includes('migration'))
     }
