@@ -10,6 +10,23 @@ hero:
     - theme: brand
       text: 开始做菜
       link: /guide/learn/厨房准备
+features:
+  - title: 海鲜
+    icon: '🐟'
+    details: 鲜香海味，一网打尽
+    link: /guide/aquatic/白灼虾/白灼虾
+  - title: 蔬菜
+    icon: '🌱'
+    details: 绿色健康，美味不油腻
+    link: /guide/vegetable_dish/拔丝土豆/拔丝土豆
+  - title: 肉类
+    icon: '🍖'
+    details: 经典肉菜，满满幸福感
+    link: /guide/meat_dish/巴基斯坦牛肉咖喱/巴基斯坦牛肉咖喱
+  - title: 甜点
+    icon: '🍰'
+    details: 甜蜜收尾，舌尖上的甜品时光
+    link: /guide/dessert/奥利奥冰淇淋/奥利奥冰淇淋
 ---
 
 <!-- 2. 分类导航 -->

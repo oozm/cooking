@@ -39,8 +39,8 @@ export function createGuideSidebar(
     semi_finished: { name: '半成品', order: 7 },
     soup: { name: '汤与粥', order: 7 },
     drink: { name: '饮料', order: 8 },
-    condiment: { name: '酱料和其它材料', order: 9 },
-    dessert: { name: '甜品', order: 10 },
+    dessert: { name: '甜品', order: 9 },
+    condiment: { name: '酱料和其它材料', order: 10 },
     advanced: { name: '进阶知识学习', order: 11 },
   }
 ) {
