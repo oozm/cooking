@@ -34,6 +34,7 @@
 .VPHero .VPImage {
   filter: drop-shadow(-2px 4px 6px rgba(0, 0, 0, 0.2));
   padding: 18px;
+  border-radius: 48px;
 }
 
 /* used in reference/default-theme-search */
@@ -42,7 +43,5 @@ img[src='/search.png'] {
   aspect-ratio: 1 / 1;
 }
 .image-src {
-  border-radius: 48px;
-  overview: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 48px !important;
 }
