@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master # 或 main，根据你的默认分支
+# 关键：给 GITHUB_TOKEN 写权限
+permissions:
+  contents: write # 允许对 repo 的读写
+  pages: write # 允许对 gh-pages 分支/pages 设置写入
+  id-token: write # 如果后面有用到 OIDC
 
 jobs:
   deploy:
@@ -34,5 +39,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./.vitepress/dist # ← 这里要和实际输出目录保持一致
+          publish_dir: .vitepress/dist # ← 这里要和实际输出目录保持一致
           cname: uilist.com # 如果你使用自定义域
