@@ -3,61 +3,38 @@ name: deploy
 on:
   push:
     branches:
-      - master
+      - master # 或 main，根据你的默认分支
 
 jobs:
-  push-to-gh-pages:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # 确保能推 gh-pages 分支
 
-      - name: Sed Config Base
-        shell: bash
-        run: |
-          sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
-          sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
-          cat ./.env.production
-
-      - name: Install pnpm
+      - name: Install Node.js and pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
-          run_install: false
-
-      - name: use Node.js 20
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      #      - name: Get yarn cache directory path
-      #        id: yarn-cache-dir-path
-      #        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      #
-      #      - name: Cache dependencies
-      #        uses: actions/cache@v3
-      #        with:
-      #          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #          restore-keys: |
-      #            ${{ runner.os }}-yarn-
-      - name: Build
-        env:
-          NODE_OPTIONS: '--max_old_space_size=4096'
-        run: |
-          pnpm install --no-frozen-lockfile
-          pnpm run build
-          touch .vitepress/dist/.nojekyll
-          cp .vitepress/dist/index.html .vitepress/dist/404.html
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
 
-      # - name: Delete gh-pages branch
-      #   run: |
-      #     git push origin --delete gh-pages
+      - name: Build VitePress site
+        run: pnpm run build
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN  }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .vitepress/dist
-          cname: uilist.com
+          publish_dir: ./.vitepress/dist # ← 这里要和实际输出目录保持一致
+          user_name: oozm # 可选：设置提交者用户名/邮箱
+          user_email: oozm@users.noreply.github.com
+          cname: uilist.com # 如果你使用自定义域
