@@ -3,41 +3,61 @@ name: deploy
 on:
   push:
     branches:
-      - master # 或 main，根据你的默认分支
-# 关键：给 GITHUB_TOKEN 写权限
-permissions:
-  contents: write # 允许对 repo 的读写
-  pages: write # 允许对 gh-pages 分支/pages 设置写入
-  id-token: write # 如果后面有用到 OIDC
+      - master
 
 jobs:
-  deploy:
+  push-to-gh-pages:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # 确保能推 gh-pages 分支
 
-      - name: Install Node.js and pnpm
+      - name: Sed Config Base
+        shell: bash
+        run: |
+          sed -i  "s#VITE_BUILD_COMPRESS\s*=.*#VITE_BUILD_COMPRESS = 'gzip'#g" ./.env.production
+          sed -i  "s#VITE_DROP_CONSOLE\s*=.*#VITE_DROP_CONSOLE = true#g" ./.env.production
+          cat ./.env.production
+
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
-      - name: Setup Node
+          run_install: false
+
+      - name: use Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
 
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+      #      - name: Get yarn cache directory path
+      #        id: yarn-cache-dir-path
+      #        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      #
+      #      - name: Cache dependencies
+      #        uses: actions/cache@v3
+      #        with:
+      #          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+      #          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+      #          restore-keys: |
+      #            ${{ runner.os }}-yarn-
+      - name: Build
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm run build
+          touch .vitepress/dist/.nojekyll
+          cp .vitepress/dist/index.html .vitepress/dist/404.html
 
-      - name: Build VitePress site
-        run: pnpm run build
+      # - name: Delete gh-pages branch
+      #   run: |
+      #     git push origin --delete gh-pages
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN  }}
           publish_branch: gh-pages
-          publish_dir: .vitepress/dist # ← 这里要和实际输出目录保持一致
-          cname: uilist.com # 如果你使用自定义域
+          publish_dir: .vitepress/dist
+          cname: uilist.com
