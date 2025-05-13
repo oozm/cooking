@@ -5,6 +5,12 @@ on:
     branches:
       - master
 
+# 关键：给 GITHUB_TOKEN 写权限
+permissions:
+  contents: write # 允许对 repo 的读写
+  pages: write # 允许对 gh-pages 分支/pages 设置写入
+  id-token: write # 如果后面有用到 OIDC
+
 jobs:
   push-to-gh-pages:
     runs-on: ubuntu-latest
