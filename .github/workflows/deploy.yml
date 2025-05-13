@@ -35,6 +35,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./.vitepress/dist # ← 这里要和实际输出目录保持一致
-          user_name: oozm # 可选：设置提交者用户名/邮箱
-          user_email: oozm@users.noreply.github.com
           cname: uilist.com # 如果你使用自定义域
