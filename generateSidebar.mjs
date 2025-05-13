@@ -44,7 +44,7 @@ export function createGuideSidebar(
     advanced: { name: '进阶知识学习', order: 11 },
   }
 ) {
-  const docsRoot = path.resolve(__dirname, '..')
+  const docsRoot = path.resolve(__dirname, './')
   const guideRoot = path.join(docsRoot, baseDir)
 
   // 1. 读取一级目录

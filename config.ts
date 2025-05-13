@@ -11,7 +11,6 @@ import { createGuideSidebar } from "./generateSidebar.mjs";
 
 export default defineConfig({
   title: 'Cooking',
-  base: '/cooking/',
   // rewrites: {
   //   'en/:rest*': ':rest*'
   // },
@@ -48,7 +47,7 @@ export default defineConfig({
 
   /* prettier-ignore */
   head: [
-    ['link', { rel: 'icon', type: 'image/png', href: '/logo-mini.png' }],
+    ['link', { rel: 'icon', type: 'image/png', href: './logo-mini.png' }],
     ['meta', { name: 'theme-color', content: '#5f67ee' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'Cooking' }],
@@ -84,21 +83,21 @@ export default defineConfig({
 
   vite: {
     assetsInclude: [/\.(jpe?g|png|gif|svg)$/i],
+    build: {
+      // 将警告阈值调到 1000 KB（默认为 500）
+      chunkSizeWarningLimit: 1000,
+    },
     plugins: [
       groupIconVitePlugin({
         customIcon: {
           vitepress: localIconLoader(
             import.meta.url,
-            '../public/logo-mini.png'
+            '../cooking/public/logo-mini.png'
           ),
-          firebase: 'logos:firebase'
         }
       }),
+
     ],
-    build: {
-      // 将警告阈值调到 1000 KB（默认为 500）
-      chunkSizeWarningLimit: 1000,
-    }
   },
 
 })

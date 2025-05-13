@@ -7,17 +7,14 @@ import {
   localIconLoader
 } from 'vitepress-plugin-group-icons'
 
-import llmstxt from 'vitepress-plugin-llms'
 import { createGuideSidebar } from "./generateSidebar.mjs";
 
-const prod = !!process.env.NETLIFY
 
 export default defineConfig({
   title: 'Cooking',
-  base: '/cooking/',
-  // rewrites: {
-  //   'en/:rest*': ':rest*'
-  // },
+  rewrites: {
+    'en/:rest*': ':rest*'
+  },
   lastUpdated: true,
   cleanUrls: true,
   metaChunk: true,
@@ -44,7 +41,7 @@ export default defineConfig({
   },
 
   sitemap: {
-    hostname: 'uilist.com',
+    hostname: 'https://oozm.github.io/cooking',
     transformItems(items) {
       return items.filter((item) => !item.url.includes('migration'))
     }
@@ -95,14 +92,8 @@ export default defineConfig({
             import.meta.url,
             '../public/logo-mini.png'
           ),
-          firebase: 'logos:firebase'
         }
       }),
-      prod &&
-      llmstxt({
-        workDir: 'en',
-        ignoreFiles: ['index.md']
-      })
     ],
     build: {
       // 将警告阈值调到 1000 KB（默认为 500）

@@ -1,5 +1,5 @@
 ---
-home: true
+layout: home
 
 hero:
   name: 美味，一触即发
@@ -28,5 +28,3 @@ features:
     details: 甜蜜收尾，舌尖上的甜品时光
     link: /guide/dessert/奥利奥冰淇淋/奥利奥冰淇淋
 ---
-
-<div>1231231yasd</div>
