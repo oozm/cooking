@@ -26,3 +26,5 @@ node_modules
 .vitepress/dist
 .vitepress/cache
 .history
+*.lock
+.vitepress/dist
