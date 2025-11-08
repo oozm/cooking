@@ -14,7 +14,6 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@types/three": "^0.162.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",

@@ -8,20 +8,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "legendary-cursor": "^1.0.2",
-    "three": "^0.162.0",
-    "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "shree": "^1.0.0",
+    "vue": "^3.4.21"
   },
   "devDependencies": {
-    "@types/three": "^0.162.0",
     "@vitejs/plugin-vue": "^5.0.4",
-    "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.3",
-    "vite": "^5.2.0",
-    "vue-tsc": "^2.0.6"
+    "vite": "^5.2.0"
   }
 }
