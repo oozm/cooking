@@ -3,25 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "serve": "vitepress serve",
-    "preview": "vitepress preview"
-  },
-  "devDependencies": {
-    "markdown-it-mathjax3": "^4.3.2",
-    "vitepress": "^2.0.0-alpha.5",
-    "vitepress-plugin-group-icons": "^1.5.2",
-    "vue": "^3.3.4"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@algolia/client-search"
-      ]
-    }
-=======
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
@@ -33,7 +14,6 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@types/three": "^0.162.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.19",
@@ -42,6 +22,5 @@
     "typescript": "^5.4.3",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"
->>>>>>> develop
   }
 }
