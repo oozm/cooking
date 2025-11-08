@@ -22,9 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-<<<<<<< HEAD
 node_modules
 .vitepress/dist
 .vitepress/cache
-=======
->>>>>>> develop
+.history
